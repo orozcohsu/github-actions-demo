@@ -1,36 +1,26 @@
-# This is a basic workflow to help you get started with Actions
+# 1. 定義這個工作流的名稱
+name: My First CI Pipeline
 
-name: CI
-
-# Controls when the workflow will run
+# 2. 設定觸發條件：當有人 push 程式碼到 main 分支時就啟動
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    branches: [ main ]
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+# 3. 定義要做哪些事情（Jobs）
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  run-tests:
+    # 指定執行環境（使用 GitHub 提供的 Ubuntu 虛擬機）
     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
+    # 具體的執行步驟
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v4
+      # 步驟一：複製（Checkout）專案程式碼到虛擬機中
+      - name: Check out repository code
+        uses: actions/checkout@v4
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      # 步驟二：模擬執行測試指令
+      - name: Run test script
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+          echo "正在安裝相依套件..."
+          echo "正在執行單元測試..."
+          echo "測試成功通過！"
